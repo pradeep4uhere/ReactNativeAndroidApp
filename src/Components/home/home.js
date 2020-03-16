@@ -4,8 +4,11 @@ import { Container, Content, Header, Button, Text,  Body, Icon, Left,Right,Scrol
 import AllCategoryScreen from '../Page/AllCategoryScreen';
 import AllCatelogListScreen from '../Page/AllCatelogListScreen';
 import DashboardScreen from '../Page/DashboardScreen';
+import LoginPageScreen from '../Page/LoginPageScreen';
 import HomepageScreen from '../Page/HomepageScreen';
 import ContactUsScreen  from '../Page/ContactUsScreen';
+import LoginScreen  from '../Login/LoginScreen';
+import RegisterScreen from '../Login/RegisterScreen';
 import HelpScreen from '../Page/HelpScreen';
 import TermsAndConditionsScreen from '../Page/TermsAndConditionsScreen';
 import PrivacyPolicyScreen  from '../Page/PrivacyPolicyScreen';
@@ -52,9 +55,28 @@ const AppDrawerNavigator = createDrawerNavigator(
                                         drawerLabel: <Hidden/>,
                                }, 
      },                        
-    'Dashboard'           : {  screen: DashboardScreen },     
+    'Dashboard'           : {  screen: DashboardScreen,
+                               navigationOptions: {
+                                  drawerLabel: <Hidden/>,
+                               }, 
+                            },
+    'LoginPage'           : {  screen: LoginPageScreen,
+                                  navigationOptions: {
+                                    drawerLabel: <Hidden/>,
+                                }, 
+                            },          
     'AllCategory'         : {  screen: AllCategoryScreen },
     'Contact Us'          : {  screen: ContactUsScreen     },
+    'Login'               : {  screen: LoginScreen,
+                               navigationOptions: {
+                                        drawerLabel: <Hidden/>,
+                               },      
+                            },
+    'Register'            : {  screen: RegisterScreen,
+                                navigationOptions: {
+                                  drawerLabel: <Hidden/>,
+                                }, 
+                            },
     'Terms & Conditions'  : {  screen: TermsAndConditionsScreen     },
     'Privacy Policy'      : {  screen: PrivacyPolicyScreen     },
     // 'Faq'                 : {  screen: FAQScreen     },

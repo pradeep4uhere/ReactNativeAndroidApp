@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import IconV from 'react-native-vector-icons/FontAwesome5';
-
 import {
   StyleSheet,
   View,
@@ -10,40 +8,52 @@ import {
   Alert,
   ImageBackground
 } from 'react-native';
-import { Container, Header, Content, Button, Text, Left, Body, Right, Icon, Title, Form, Item,   Label, Textarea } from 'native-base';
-import { CheckBox, Input,SearchBar } from 'react-native-elements';
-export default class ContactUsScreen extends Component {  
-  static navigationOptions = {  
-       title:'Contact Us',
-       headerTintColor: 'black',
-       headerShown: true,
-       drawerIcon:(tintColor) => (
-           <IconV name="envelope" style={{fontSize:25}}/>
-       )
-  };  
-  render() {  
-      return (  
-        <Container>
-        <Header style={{backgroundColor:'#F72F81'}}>
-          <Left>
-          <Icon style={{color:'#FFF'}} name="menu" onPress={() => this.props.navigation.openDrawer()}  />       
-          </Left>
-          <Body>
-            <Text style={{color:'#FFF'}}>Contact Us</Text>  
-          </Body>
-          <Right>
-          
-          <Icon style={{color:'#FFF'}} name="home" onPress={() => this.props.navigation.navigate('AllCategory')}  />    
-          </Right>
-        </Header>
-        <Body>
-        <View style={styles.container}>
+import { Container, Header, Content, Button, Text, Left, Body, Right, Icon, Title, Form, Item,   Label } from 'native-base';
+import { CheckBox, Input } from 'react-native-elements';
+export default class Login extends Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+      email   : '',
+      password: '',
+      checked:'',
+    }
+  }
+
+  onClickListener = (viewId) => {
+    Alert.alert("Alert", "Button pressed "+viewId);
+  }
+render() {
+return (
+<Container>
+<Header style={{backgroundColor:'#F72F81'}}>
+<Left>
+<Button transparent onPress={() => this.props.navigation.navigate('AllCategory')}>
+	<Icon name='arrow-back' />
+</Button>
+</Left>
+<Body>
+    <Title>Register</Title>
+</Body>
+<Right>
+	<Button transparent onPress={() => this.props.navigation.navigate('Login')}>
+		<Text>Login</Text>
+	</Button>
+</Right>
+</Header>
+ <View style={styles.container}>
 		<View>
- 			<Text style={styles.welcometext}>Contact Us</Text>
+ 			<Text style={styles.welcometext}>Sign Up</Text>
 		 </View> 
         <View style={styles.inputContainer}>
           <Item floatingLabel>
-			<Label>Full Name</Label>
+			<Label>First Name</Label>
+			<Input />
+			</Item>
+        </View>
+        <View style={styles.inputContainer}>
+          <Item floatingLabel>
+			<Label>Last Name</Label>
 			<Input />
 			</Item>
         </View>
@@ -56,41 +66,39 @@ export default class ContactUsScreen extends Component {
         
         <View style={styles.inputContainer}>
              <Item floatingLabel>
-				<Label>Mobile Number</Label>
+				<Label>Password</Label>
 			 <Input />
 			 </Item>
         </View>
         <View style={styles.inputContainer}>
              <Item floatingLabel>
-				<Label>Message</Label>
-			 <Textarea style={{height:50}}/>
+				<Label>Confirm Password</Label>
+			 <Input />
 			 </Item>
         </View>
-       	
+       	<CheckBox title='I Agree Terms & Cont and Privacy Policy ?' 
+       		style={styles.forgotText} 
+       		checked={this.state.checked}
+			onPress={() => this.setState({checked: !this.state.checked})}
+		/>
         <TouchableHighlight style={[styles.buttonSignUpContainer, styles.loginButton]} id="signup" onPress={() => this.onClickListener('login')}>
-          <Text style={styles.loginText}>Submit</Text>
+          <Text style={styles.loginText}>Sign Up</Text>
         </TouchableHighlight>
 
 
-      </View> 
-          </Body>
-        </Container>
-      );  
-  }  
-}  
+      </View>
+<View  >
+
+</View>
+
+</Container>
+);
+}
+}
 
 
 const styles = StyleSheet.create({
-  drawerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-   
-  },
-  drawerContainerwelcometext:{
-    fontSize: 18,
-    color:'#222'
-  },
+
   container: {
     flex: 1,
     justifyContent: 'center',

@@ -9,46 +9,147 @@ import {
   ImageBackground
 } from 'react-native';
 import { Container, Header, Content, Button, Text, Left, Body, Right, Icon, Title, Form, Item,   Label } from 'native-base';
-import { CheckBox, Input } from 'react-native-elements';
+import AppIntroSlider from 'react-native-app-intro-slider';
+const slides = [
+  {
+    key: 'somethun',
+    title: 'Title 1',
+    text: 'Description.\nSay something cool',
+    image: require('../../assets/img/67502.jpg'),
+    backgroundColor: '#59b2ab',
+  },
+  {
+    key: 'somethun-dos',
+    title: 'Title 2',
+    text: 'Other cool stuff',
+    image: require('../../assets/img/shopping.jpg'),
+    backgroundColor: '#febe29',
+  },
+  {
+    key: 'somethun1',
+    title: 'Rocket guy',
+    text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
+    image: require('../../assets/img/crystal_background.jpg'),
+    backgroundColor: '#22bcb5',
+  },
+  {
+    key: 'somethun2',
+    title: 'Title 1',
+    text: 'Description.\nSay something cool',
+    image: require('../../assets/img/67502.jpg'),
+    backgroundColor: '#59b2ab',
+  },
+  {
+    key: 'somethun-dos2',
+    title: 'Title 2',
+    text: 'Other cool stuff',
+    image: require('../../assets/img/shopping.jpg'),
+    backgroundColor: '#febe29',
+  },
+];
 export default class DashboardScreen extends Component {  
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showRealApp: false
+    }
+  }
+
+
+  on_Done_all_slides = () => {
+    this.setState({ show_Main_App: true });
+    this.props.navigation.navigate('AllCategory');
+  };
+
+  on_Skip_slides = () => {
+    this.setState({ show_Main_App: true });
+    this.props.navigation.navigate('AllCategory');
+  };
+  
+   _renderItem = (item) => {
+    return (
+      <View style={styles.slide}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Image source={item.image} />
+        <Text style={styles.text}>{item.text}</Text>
+      </View>
+    );
+  }
+
+
+  _onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    this.setState({ showRealApp: true });
+  }
   static navigationOptions = {  
-       title:'Dashboard',
-       drawerIcon:(tintColor) => (
-           <Icon name="home"/>
-       )
+       title:'Intro Page',
   };  
   render() {  
-      return (  
-        <Container>
-        <Header style={{backgroundColor:'#F72F81'}}>
-          <Left>
-          <Icon style={{color:'#FFF'}} name="menu" onPress={() => this.props.navigation.openDrawer()}  />      
-          </Left>
-          <Body>
-          <Text style={{color:'#FFF'}}>Dashboard</Text>  
-          </Body>
-          <Right>
-          <Icon style={{color:'#FFF'}} name="home"/>       
-          </Right>
-        </Header>
-        <Body style={styles.drawerContainer}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>  
-              <Text>Dashboard Screen Page</Text>  
-          </View>  
-          </Body>
-        </Container>
-      );  
+   if (this.state.showRealApp) {
+            return   
+            <ImageBackground source={require('../../assets/img/shopping.jpg')} style={{width: '100%', height: '100%',opacity: 1}}>
+            <View style={styles.container}>
+               <View style={{flex:1,justifyContent:'space-between', alignContent:'center', marginTop:100, backgroundColor:'transparent'}}>
+                 <Text style={styles.welcometext}>Appname Here</Text>
+               </View>
+               <View style={{flexDirection:'row', justifyContent:'space-between', alignContent:'center'}}>  
+               <View style={{flex:1}}>
+                   <Button style={styles.buttonContainer}>
+                     <Text style={{fontSize:15}}>Login</Text>
+                    </Button>
+               </View>
+               <View  style={{flex:1}}>
+                   <Button style={styles.buttonContainerRegister}><Text style={{color:'#000', fontSize:15}}>Register</Text></Button>
+               </View>
+               </View>  
+           </View>
+           </ImageBackground>
+          } else {
+            return  <AppIntroSlider
+                    slides={slides}
+                    onDone={this.on_Done_all_slides}
+                    showSkipButton={true}
+                    onSkip={this.on_Skip_slides}
+                  />
+          }
   }  
 }  
 
 
 const styles = StyleSheet.create({
+  mainContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  image: {
+    width: 320,
+    height: 320,
+  },
+  text: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+  },
+  title: {
+    fontSize: 22,
+    color: 'white',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
 
+
+  containerImg: {
+    backgroundColor:'red',
+    opacity: 0.6
+},
   drawerContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-   
+    flexDirection: 'column',
   },
   drawerContainerwelcometext:{
   	margin: 10,
@@ -59,87 +160,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba( 0, 0, 0, 0.0 )',
     
   },
-  inputContainer: {
-      borderBottomColor: '#fff',
-      borderRadius:5,
-      borderBottomWidth: 1,
-      width:320,
-      height:55,
-      marginBottom:10,
-      flexDirection: 'row',
-      alignItems:'center'
-  },
-  inputs:{
-      height:45,
-      marginLeft:16,
-      borderBottomColor: '#FFFFFF',
-      flex:1,
-  },
-  inputIcon:{
-    width:30,
-    height:30,
-    marginLeft:15,
-    justifyContent: 'center'
-  },
+  
   buttonContainer: {
     height:45,
-    flexDirection: 'row',
+    backgroundColor: "#F72F81",
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:10,
-    marginTop:30,
-    width:300,
-    borderRadius:5,
+    alignItems: 'center'
   },
 
-   buttonSignUpContainer: {
+
+  buttonContainerRegister: {
     height:45,
-    flexDirection: 'row',
     justifyContent: 'center',
+    backgroundColor: "#FFF",
     alignItems: 'center',
-    marginBottom:10,
-    marginTop:10,
-    width:300,
-    borderRadius:5,
+    backgroundColor: "#eeebe2",
+    
   },
 
-  
-  buttonForgotContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:5,
-    fontSize:10
-  },
-   buttonRegisterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:5,
-    width:300,
-    borderRadius:5,
-  },
-
-
-  
-  loginButton: {
-    backgroundColor: "#ff0000",
-  },
-  loginText: {
-    color: 'white',
-  },
-  forgotText: {
-  	fontSize: 10
+ 
+  welcometext: {
+    fontSize: 24,
+    color:'#FFF'
   },
   OrText: {
   	fontSize: 16
   },
-  welcometext:{
-  	marginBottom: 10,
-  	fontSize: 20,
-  }
   
 });
  

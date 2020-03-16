@@ -33,7 +33,7 @@ export default class TermsAndConditionsScreen extends Component {
           </Body>
           <Right>
           
-          <Icon style={{color:'#FFF'}} name="home" onPress={() => this.props.navigation.navigate('Dashboard')}  />    
+          <Icon style={{color:'#FFF'}} name="home" onPress={() => this.props.navigation.navigate('AllCategory')}  />    
           </Right>
         </Header>
         <Body style={styles.drawerContainer}>
